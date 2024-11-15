@@ -4,8 +4,8 @@ authors:
 - family-names: Navarro Navarrete
   given-names: José Eduardo
   orcid: https://orcid.org/0000-0003-4392-9867
-title: "PhD"
+title: "Master equation with runge-Kutta-2"
 version: 1.0.0
-doi: 10.5281/zenodo.1234
+doi: 10.5281/github.1234
 date-released: 2024-11-15
 url: "https://github.com/eduNava-17/PhD"

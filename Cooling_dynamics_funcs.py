@@ -23,6 +23,14 @@ m_e = 5.485799e-4  # u, electron mass
 mu_emol = m_e*m_mol/(m_e+m_mol) # kg, reduced mass
 hbar = 6.62607015e-34  # J*s
 
+def xl_clean(file,sheet):
+   abc = ['A','B','C']
+   ds = xw.Book(file).sheets[sheet]
+   data = []
+   for i in range(len(abc)):
+       data.append([x for x in ds.range('{}2:{}30000'.format(abc[i],abc[i])).value if x is not None])   
+   return data[0],data[1],data[2]
+
 def get_frequencies(file):
     fs = []
     with open(file, 'r') as f:

@@ -1,6 +1,9 @@
 """
 Created on Fri Jan  5 18:20:47 2024
 @author: Edu
+
+Let us start by importing all the packages that will be used or potentially used.
+
 """
 
 from sys import path
@@ -25,28 +28,21 @@ from numba import jit
 from scipy.sparse import csr_matrix, lil_matrix
 import xlwings as xw
 
+atime = time() # keeping track of how much time the simulation takes. This starts the timer.
+dateToday = str(datetime.date.today())
+
+wn_to_eV = 1.23984e-4  # multiply by to convert Wavenumbers to electronvolts
+Emax = 195000 # The max number in the energy grid, this number will depend on your initial distribution
+
 fig = plt.figure(figsize=(16,9))
 gs = fig.add_gridspec(2,2)
 axs = gs.subplots()
 
-def xl_clean(file,sheet):
-   abc = ['A','B','C']
-   ds = xw.Book(file).sheets[sheet]
-   data = []
-   for i in range(len(abc)):
-       data.append([x for x in ds.range('{}2:{}30000'.format(abc[i],abc[i])).value if x is not None])
-   
-   return data[0],data[1],data[2]
+''' The initial data will be the frequencies of the vibrational modes and intensities. 
+We will calculate the density of states by calling the function bs_dens_wn from Cooling_dynamics_funcs.py'''
 
-atime = time()
-wn_to_eV = 1.23984e-4  # multiply by to convert Wavenumbers to electronvolts
-Emax = 195000
-# Emax = 240000
-
-dateToday = str(datetime.date.today())
-
-exp_path_70 = r'D:\c70\June_19/'
-x_c70, y_c70, err_c70 = xl_clean(r'D:\c70/' + '2024-corrected_sptDecay_linearbins.xlsx','Sheet1')
+# exp_path_70 = r'D:\c70\June_19/'
+x_c70, y_c70, err_c70 = cdf.xl_clean(r'D:\c70/' + '2024-corrected_sptDecay_linearbins.xlsx','Sheet1')
 freq_e = 'freqs_6-311G.txt'
 ints_e = 'ints_6-311G.txt'
 f_i = np.array(cdf.get_intensities(exp_path_70 + ints_e))
